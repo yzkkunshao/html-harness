@@ -1,0 +1,2 @@
+禁止直接kill或者taskkill /IM node进程
+允许找到对应pid然后kill

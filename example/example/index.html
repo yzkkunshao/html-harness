@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>演示首页 · html-harness</title>
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- 1. esm-x 必须最先（阻塞式）：在 es-module-shims 初始化前设置 shimMode -->
+  <script id="esm-x" compiler="babel" loading="circular" src="./vendor/esm-x.js"></script>
+
+  <!-- 2. importmap：react 全家桶映射到本地 ESM 构建 -->
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "./vendor/react.js",
+      "react-dom": "./vendor/react-dom.js",
+      "react-dom/client": "./vendor/react-dom-client.js",
+      "scheduler": "./vendor/scheduler.js"
+    }
+  }
+  </script>
+
+  <!-- 3. ES Module Shims -->
+  <script async src="./vendor/es-module-shims.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- 4. 内联入口：esm-x 只读 innerHTML，禁止 src 外链写法（实测静默空白） -->
+  <script type="esm-x">
+    import './index.mount.jsx';
+  </script>
+</body>
+</html>

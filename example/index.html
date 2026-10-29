@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSX + Importmap + esm-x 示例</title>
+
+  <!-- 1. esm-x 必须是第一个脚本（阻塞式加载）：
+       它要在 es-module-shims 初始化之前设置 esmsInitOptions.shimMode，
+       否则编译产物 type="module-shim" 脚本不会被执行，页面将一片空白 -->
+  <script id="esm-x"
+          compiler="babel"
+          loading="circular"
+          src="./vendor/esm-x.js"></script>
+
+  <!-- 2. 配置 importmap，映射 react / react-dom（本地 ESM 构建版本） -->
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "./vendor/react.js",
+      "react-dom": "./vendor/react-dom.js",
+      "react-dom/client": "./vendor/react-dom-client.js",
+      "scheduler": "./vendor/scheduler.js"
+    }
+  }
+  </script>
+
+  <!-- 3. 再加载 ES Module Shims（async 即可，esm-x 已在其前完成初始化配置） -->
+  <script async src="./vendor/es-module-shims.js"></script>
+</head>
+<body>
+  <!-- React 挂载点 -->
+  <div id="root"></div>
+
+  <!-- 4. esm-x 不支持 src 外链（源码只读 innerHTML），正确用法是内联入口 + import：
+       esm-x 劫持了 esmsInitOptions.fetch，会对同源 fetch 到的 .jsx 模块自动做 Babel 编译 -->
+  <script type="esm-x">
+    import './app.jsx';
+  </script>
+
+  <!-- 如果有第二个 JSX 文件，在入口里继续 import 即可 -->
+  <!-- import './another.jsx'; -->
+</body>
+</html>

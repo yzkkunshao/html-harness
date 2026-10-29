@@ -1,0 +1,404 @@
+/* ============================================================
+   漏洞发布平台 — 公共样式 v0.2
+   按 securitybulletin.huawei.com 登录后真实布局对齐：
+   黑色顶条 / 白色主导航 / 深蓝通知横幅 / 浅黄通知条 / 面包屑
+   居中标题与 Tab / 窄查询容器 / 三列-六列斑马纹表格 / 底部入口卡片
+   纯静态，无外部依赖，适配 nginx 直接托管
+   ============================================================ */
+
+:root {
+  --primary: #c7000b;
+  --primary-dark: #a30009;
+  --text-main: #1a1a1a;
+  --text-sub: #5c6470;
+  --text-light: #8a919c;
+  --line: #e5e7eb;
+  --bg-page: #ffffff;
+  --thead-bg: #f2f3f5;
+  --row-alt: #fafbfc;
+  --banner-bg1: #2b3990;
+  --banner-bg2: #453a94;
+  --sev-critical: #c7000b;
+  --sev-high: #e8590c;
+  --sev-medium: #b8860b;
+  --sev-low: #2f9e44;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+  color: var(--text-main);
+  background: var(--bg-page);
+  font-size: 14px;
+  line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
+button, select, input { font-family: inherit; cursor: pointer; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------------- 顶部黑色细条 ---------------- */
+.topbar { background: #000; color: #ccc; font-size: 12px; }
+.topbar-inner { display: flex; justify-content: space-between; height: 34px; align-items: center; }
+.topbar a { color: #ccc; margin-right: 18px; }
+.topbar a:hover { color: #fff; }
+.topbar-right a { margin-right: 0; margin-left: 18px; }
+
+/* ---------------- 白色主导航 ---------------- */
+.main-header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 100;
+}
+.header-inner { display: flex; align-items: center; height: 68px; gap: 48px; }
+.logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.logo-mark {
+  width: 38px; height: 38px; background: var(--primary); color: #fff;
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700;
+}
+.logo-text { font-size: 17px; font-weight: 600; }
+.logo-text small { display: block; font-size: 10px; color: var(--text-light); font-weight: 400; }
+.main-nav { display: flex; gap: 40px; flex: 1; justify-content: center; }
+.main-nav a { font-size: 15px; color: #333; padding: 24px 2px; position: relative; }
+.main-nav a:hover { color: var(--primary); }
+.main-nav a.active { color: var(--primary); font-weight: 600; }
+.main-nav a.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 3px; background: var(--primary);
+}
+.icon-btn {
+  width: 38px; height: 38px; border: none; background: none; font-size: 17px;
+  border-radius: 50%;
+}
+.icon-btn:hover { background: #f2f3f5; }
+
+/* ---------------- 深蓝通知横幅 ---------------- */
+.notice-banner {
+  position: relative;
+  background: linear-gradient(100deg, var(--banner-bg1), var(--banner-bg2));
+  color: #fff;
+  padding: 26px 0;
+  text-align: center;
+}
+.banner-line { font-size: 20px; font-weight: 600; letter-spacing: 2px; }
+.banner-btn {
+  margin-left: 24px; padding: 8px 22px;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.65);
+  color: #fff; border-radius: 3px; font-size: 14px; letter-spacing: 2px;
+  vertical-align: middle;
+}
+.banner-btn:hover { background: rgba(255,255,255,.28); }
+.banner-close {
+  position: absolute; right: 14px; top: 10px;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.5);
+  background: none; color: #fff; font-size: 15px; line-height: 1;
+}
+
+/* ---------------- 浅黄通知条 ---------------- */
+.notice-yellow {
+  background: #fdf3e0;
+  color: #6b5b3e;
+  font-size: 13px;
+  padding: 10px 24px;
+  text-align: center;
+}
+.notice-yellow b { margin-right: 4px; }
+
+/* ---------------- 面包屑 ---------------- */
+.crumb-bar { background: #f7f7f7; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--text-sub); }
+.crumb-bar .wrap { padding-top: 8px; padding-bottom: 8px; }
+.crumb-bar a { color: var(--text-sub); }
+.crumb-bar a:hover { color: var(--primary); }
+.crumb-bar .sep { margin: 0 10px; color: #c9c9c9; }
+
+/* ---------------- 主体 ---------------- */
+.main-section { padding: 40px 0 60px; }
+
+.page-title { text-align: center; font-size: 30px; font-weight: 600; letter-spacing: 1px; }
+
+/* 居中 Tab */
+.tab-bar {
+  display: flex; justify-content: center; gap: 64px;
+  margin: 28px 0 0;
+  border-bottom: 1px solid var(--line);
+}
+.tab-item {
+  background: none; border: none;
+  font-size: 16px; color: #555;
+  padding: 12px 6px 14px;
+  position: relative;
+}
+.tab-item:hover { color: var(--primary); }
+.tab-item.active { color: var(--primary); font-weight: 600; }
+.tab-item.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px;
+  height: 3px; background: var(--primary);
+}
+
+/* ---------------- 查询条件（窄容器） ---------------- */
+.query-box { max-width: 860px; margin: 40px auto 0; }
+.q-label { font-size: 14px; color: #333; margin-bottom: 8px; }
+.q-help { color: var(--text-light); cursor: help; }
+.q-input {
+  width: 100%; height: 44px;
+  border: 1px solid #c9c9c9; border-radius: 2px;
+  padding: 0 14px; font-size: 14px; outline: none;
+}
+.q-input:focus { border-color: var(--primary); }
+.q-adv-toggle {
+  display: inline-block; margin-top: 10px;
+  font-size: 13px; color: #555; cursor: pointer;
+}
+.q-adv-toggle:hover { color: var(--primary); }
+
+/* 高级搜索折叠面板 */
+.q-adv-panel {
+  display: flex; flex-wrap: wrap; gap: 16px 24px;
+  margin-top: 14px; padding: 16px;
+  background: #f8f9fa; border: 1px solid var(--line); border-radius: 4px;
+}
+.q-adv-panel.hidden { display: none; }
+.q-adv-item { display: flex; align-items: center; gap: 8px; }
+.q-adv-item label { font-size: 13px; color: var(--text-sub); }
+.q-adv-item select {
+  height: 34px; min-width: 120px;
+  border: 1px solid #c9c9c9; border-radius: 2px;
+  padding: 0 8px; background: #fff; outline: none;
+}
+.q-adv-item select:focus { border-color: var(--primary); }
+.q-adv-note { flex-basis: 100%; font-size: 12px; color: var(--text-light); }
+
+.q-btns { text-align: center; margin-top: 24px; }
+.q-btn {
+  min-width: 132px; height: 42px;
+  background: #fff; border: 1px solid #333; border-radius: 2px;
+  font-size: 14px; color: #333; letter-spacing: 4px;
+  margin: 0 10px;
+}
+.q-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* 权限提示小字 */
+.perm-tip { max-width: 860px; margin: 28px auto 0; font-size: 12px; color: var(--text-light); }
+
+/* ---------------- 排序栏 ---------------- */
+.list-toolbar {
+  max-width: 1152px; margin: 20px auto 10px;
+  display: flex; justify-content: flex-end; align-items: center; gap: 8px;
+}
+.sort-label { font-size: 13px; color: var(--text-sub); }
+.list-toolbar select {
+  height: 32px; border: 1px solid #c9c9c9; border-radius: 2px;
+  background: #fff; padding: 0 8px; font-size: 13px; outline: none;
+}
+
+/* ---------------- 列表表格（斑马纹） ---------------- */
+.vul-table { max-width: 1152px; margin: 0 auto; border: 1px solid var(--line); }
+
+.vt-head {
+  display: grid; gap: 16px;
+  background: var(--thead-bg);
+  font-size: 13px; font-weight: 600; color: #333;
+  padding: 12px 20px;
+}
+/* SA：漏洞描述 | 内部编号 | 漏洞编号 | CVSS3评分 | 漏洞等级 | 发布时间（首页目标.md） */
+.vt-head.sa, .vt-row.sa { grid-template-columns: 1fr 155px 150px 90px 80px 100px; }
+/* SN：漏洞标题 | 内部标识 | 发布时间（首页目标.md） */
+.vt-head.sn, .vt-row.sn { grid-template-columns: 1fr 150px 100px; }
+
+.vt-row {
+  display: grid; gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+  font-size: 13px; color: var(--text-sub);
+  cursor: pointer;
+}
+.vt-row:nth-child(even) { background: var(--row-alt); }
+.vt-row:hover { background: #fdf6f6; }
+.vt-row:last-child { border-bottom: none; }
+
+/* 标题单元格：链接标题 + 编号 + 摘要 */
+.row-title {
+  display: block;
+  color: #1a66b3; font-size: 14px; font-weight: 500;
+  text-decoration: underline;
+  margin-bottom: 6px;
+}
+.row-no { font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
+.row-sum {
+  font-size: 12px; color: var(--text-sub);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.sum-label { color: var(--text-light); margin-right: 4px; }
+
+/* 严重等级：彩色文字（参考站为文本列） */
+.sev-text { font-weight: 600; }
+.sev-critical { color: var(--sev-critical); }
+.sev-high     { color: var(--sev-high); }
+.sev-medium   { color: var(--sev-medium); }
+.sev-low      { color: var(--sev-low); }
+
+/* SA 列表：漏洞描述链接（超出 3 行截断，全文在详情页） */
+.row-desc {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #1a66b3; text-decoration: underline;
+  word-break: break-word;
+}
+.row-desc:hover { color: var(--primary); }
+.col-mono { font-family: Consolas, monospace; }
+
+/* 处理状态小徽章（嵌在摘要行尾，PRD 扩展） */
+.st-badge {
+  display: inline-block; margin-left: 8px; padding: 0 8px;
+  border-radius: 9px; font-size: 11px; line-height: 18px; border: 1px solid;
+  vertical-align: 1px;
+}
+.st-published { color: #2f9e44; border-color: #2f9e44; background: #ebfbee; }
+.st-fixed     { color: #1971c2; border-color: #1971c2; background: #e7f5ff; }
+.st-fixing    { color: #e8590c; border-color: #e8590c; background: #fff4e6; }
+
+.col-version { font-family: Consolas, monospace; }
+.col-date { font-family: Consolas, monospace; }
+
+/* 空状态 */
+.empty-tip { padding: 60px 0; text-align: center; color: var(--text-light); }
+
+/* ---------------- 分页（参考站样式） ---------------- */
+.pager {
+  max-width: 1152px; margin: 24px auto 0;
+  display: flex; justify-content: center; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--text-sub);
+}
+.page-btn {
+  min-width: 32px; height: 32px; padding: 0 8px;
+  border: none; background: none; font-size: 14px; color: #555;
+}
+.page-btn:hover:not(:disabled) { color: var(--primary); }
+.page-btn.active { background: var(--primary); color: #fff; border-radius: 2px; }
+.page-btn:disabled { opacity: .35; cursor: not-allowed; }
+.pager .ellipsis { color: var(--text-light); }
+.pager .jump-label { margin-left: 16px; }
+.pager .jump-input {
+  width: 44px; height: 30px; text-align: center;
+  border: 1px solid #c9c9c9; border-radius: 2px; outline: none;
+}
+.pager .jump-input:focus { border-color: var(--primary); }
+
+/* ---------------- 底部入口卡片（对齐参考站） ---------------- */
+.entry-cards {
+  max-width: 860px; margin: 56px auto 0;
+  display: flex; gap: 24px;
+}
+.entry-card {
+  flex: 1; padding: 24px 28px;
+  border: 1px solid #d9d9d9; border-radius: 2px;
+  background: #fff; cursor: pointer;
+  transition: box-shadow .2s, border-color .2s;
+}
+.entry-card:hover { border-color: var(--primary); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+.entry-card h3 { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.entry-card p { margin-top: 8px; font-size: 13px; color: var(--text-sub); }
+.badge-pending {
+  font-size: 10px; background: #e6a700; color: #fff;
+  padding: 1px 6px; border-radius: 3px; font-weight: 400;
+}
+
+/* ---------------- 右侧浮动按钮 ---------------- */
+.float-btns {
+  position: fixed; right: 16px; top: 42%; z-index: 90;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.float-btn {
+  width: 96px; height: 46px;
+  background: var(--primary); color: #fff;
+  border: none; border-radius: 4px;
+  font-size: 14px; letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(199,0,11,.35);
+}
+.float-btn:hover { background: var(--primary-dark); }
+
+/* ---------------- 页脚 ---------------- */
+.site-footer { background: #23252b; color: #9a9ca1; margin-top: 72px; font-size: 13px; }
+.footer-cols { display: flex; gap: 80px; padding-top: 40px; padding-bottom: 28px; }
+.f-col { display: flex; flex-direction: column; gap: 8px; }
+.f-col h4 { color: #e8e8e8; font-size: 14px; margin-bottom: 6px; font-weight: 600; }
+.f-col a { color: #9a9ca1; }
+.f-col a:hover { color: #fff; }
+.footer-bottom {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  border-top: 1px solid #3a3c42;
+  padding-top: 16px; padding-bottom: 20px; font-size: 12px;
+}
+.footer-bottom a { color: #b9bbbf; }
+.footer-bottom a:hover { color: #fff; }
+
+/* ---------------- 漏洞详情页（版式参考 trust.mi.com 通告页） ---------------- */
+.detail-wrap { max-width: 960px; margin: 0 auto; }
+.back-link {
+  display: inline-block; font-size: 14px; color: var(--text-sub);
+  margin-bottom: 22px;
+}
+.back-link:hover { color: var(--primary); }
+.detail-title-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.detail-title { font-size: 26px; font-weight: 600; line-height: 1.35; }
+.sev-chip {
+  padding: 2px 14px; border-radius: 3px;
+  font-size: 13px; font-weight: 600; color: #fff;
+}
+.sev-chip.c-high   { background: var(--sev-high); }
+.sev-chip.c-medium { background: var(--sev-medium); }
+.sev-chip.c-low    { background: var(--sev-low); }
+
+/* 元信息行：小米式 label 上 / value 下，竖线分隔 */
+.meta-grid {
+  display: flex; flex-wrap: wrap;
+  border: 1px solid var(--line); border-radius: 2px;
+  background: var(--row-alt);
+  margin-top: 26px;
+}
+.meta-item { flex: 1 1 160px; padding: 14px 18px; border-right: 1px solid var(--line); }
+.meta-item:last-child { border-right: none; }
+.meta-label { font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
+.meta-value { font-size: 14px; color: var(--text-main); font-family: Consolas, monospace; }
+.meta-value.sev-text { font-family: inherit; }
+
+.detail-section { margin-top: 46px; }
+.detail-section h2 {
+  font-size: 18px; font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.detail-section p {
+  margin-top: 16px; font-size: 14px; color: #333;
+  line-height: 1.9; word-break: break-word;
+}
+.detail-section .sub-h { font-weight: 600; margin-top: 24px; }
+
+/* ---------------- Toast ---------------- */
+.toast {
+  position: fixed; left: 50%; top: 90px;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(20,33,61,.92); color: #fff;
+  padding: 10px 24px; border-radius: 6px; font-size: 13px;
+  opacity: 0; pointer-events: none; transition: all .25s; z-index: 999;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------------- 响应式 ---------------- */
+@media (max-width: 900px) {
+  .main-nav { gap: 16px; }
+  .header-right { display: none; }
+  .vt-head { display: none; }
+  .vt-row.sa, .vt-row.sn {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .entry-cards { flex-direction: column; }
+  .float-btns { display: none; }
+  .footer-cols { flex-direction: column; gap: 24px; }
+}
